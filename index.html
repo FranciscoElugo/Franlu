@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>FranLu Amor Infinito</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #FF69B4;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    #counter {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+    .hearts {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 20px;
+      color: #FF1493;
+      animation: floatHearts 10s linear infinite;
+    }
+    @keyframes floatHearts {
+      0% { transform: translateX(-50%) translateY(100vh); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateX(-50%) translateY(-100vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts">❤️ 💕 💓 💖 💘 💗 ❤️ 💞 💕 💓 💗 💖 💘 💝</div>
+  <h1>Francisco & Luisa</h1>
+  <div id="counter">Cargando amor...</div>
+  <p>Desde el 2 de noviembre de 2024</p>
+
+  <script>
+    const startDate = new Date('2024-11-02T00:00:00');
+    const counter = document.getElementById('counter');
+
+    function updateCounter() {
+      const now = new Date();
+
+      let years = now.getFullYear() - startDate.getFullYear();
+      let months = now.getMonth() - startDate.getMonth();
+      let days = now.getDate() - startDate.getDate();
+      let hours = now.getHours() - startDate.getHours();
+      let minutes = now.getMinutes() - startDate.getMinutes();
+      let seconds = now.getSeconds() - startDate.getSeconds();
+
+      if (seconds < 0) {
+        seconds += 60;
+        minutes--;
+      }
+
+      if (minutes < 0) {
+        minutes += 60;
+        hours--;
+      }
+
+      if (hours < 0) {
+        hours += 24;
+        days--;
+      }
+
+      if (days < 0) {
+        months--;
+        const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += lastMonth.getDate();
+      }
+
+      if (months < 0) {
+        months += 12;
+        years--;
+      }
+
+      counter.textContent = `${months + (years * 12)} meses, ${days} días, ${String(hours).padStart(2, '0')} horas, ${String(minutes).padStart(2, '0')} minutos y ${String(seconds).padStart(2, '0')} segundos`;
+    }
+
+    setInterval(updateCounter, 1000);
+    updateCounter();
+  </script>
+</body>
+</html>
