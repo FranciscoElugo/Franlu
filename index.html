@@ -3,99 +3,120 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>FranLu Amor Infinito</title>
+  <title>FranLu Infinito</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background: #000;
-      color: #FF69B4;
-      font-family: 'Arial', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
+      background: linear-gradient(to bottom, #1a001f, #330033);
+      color: #ffe6f0;
+      font-family: 'Georgia', serif;
       text-align: center;
+      overflow-x: hidden;
     }
     h1 {
-      font-size: 2em;
-      margin-bottom: 10px;
+      margin-top: 60px;
+      font-size: 2.5em;
+      animation: fadeIn 3s ease-in-out;
     }
-    #counter {
-      font-size: 1.5em;
-      margin-bottom: 20px;
+    .counter {
+      font-size: 1.4em;
+      margin-top: 20px;
     }
-    .hearts {
+    .container {
+      padding: 30px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 500px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    .heart-float {
       position: absolute;
       top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      overflow: hidden;
-      font-size: 20px;
-      color: #FF1493;
-      animation: floatHearts 10s linear infinite;
+      width: 100%;
+      text-align: center;
+      animation: hearts 25s linear infinite;
+      font-size: 1.5rem;
+      color: #ff80bf;
     }
-    @keyframes floatHearts {
-      0% { transform: translateX(-50%) translateY(100vh); opacity: 0; }
+    @keyframes hearts {
+      0% { transform: translateY(100vh); opacity: 0; }
       50% { opacity: 1; }
-      100% { transform: translateX(-50%) translateY(-100vh); opacity: 0; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div class="hearts">❤️ 💕 💓 💖 💘 💗 ❤️ 💞 💕 💓 💗 💖 💘 💝</div>
-  <h1>Francisco & Luisa</h1>
-  <div id="counter">Cargando amor...</div>
-  <p>Desde el 2 de noviembre de 2024</p>
+  <div class="heart-float">❤️ 💖 💘 💝 💗 💞 💓</div>
+
+  <h1>FranLu Infinito</h1>
+  <div class="container">
+    <div class="counter" id="contador">Calculando amor eterno...</div>
+
+    <div class="card">
+      <h2>📜 Carta secreta: "Desde el primer latido"</h2>
+      <p style="white-space: pre-line; font-style: italic;" id="carta">
+        Cargando emoción...
+      </p>
+    </div>
+  </div>
 
   <script>
-    const startDate = new Date('2024-11-02T00:00:00');
-    const counter = document.getElementById('counter');
+    const startDate = new Date("2024-11-02T00:00:00");
+    function actualizarContador() {
+      const ahora = new Date();
+      let años = ahora.getFullYear() - startDate.getFullYear();
+      let meses = ahora.getMonth() - startDate.getMonth();
+      let días = ahora.getDate() - startDate.getDate();
+      let horas = ahora.getHours() - startDate.getHours();
+      let minutos = ahora.getMinutes() - startDate.getMinutes();
+      let segundos = ahora.getSeconds() - startDate.getSeconds();
 
-    function updateCounter() {
-      const now = new Date();
+      if (segundos < 0) { segundos += 60; minutos--; }
+      if (minutos < 0) { minutos += 60; horas--; }
+      if (horas < 0) { horas += 24; días--; }
+      if (días < 0) { meses--; días += new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate(); }
+      if (meses < 0) { meses += 12; años--; }
 
-      let years = now.getFullYear() - startDate.getFullYear();
-      let months = now.getMonth() - startDate.getMonth();
-      let days = now.getDate() - startDate.getDate();
-      let hours = now.getHours() - startDate.getHours();
-      let minutes = now.getMinutes() - startDate.getMinutes();
-      let seconds = now.getSeconds() - startDate.getSeconds();
-
-      if (seconds < 0) {
-        seconds += 60;
-        minutes--;
-      }
-
-      if (minutes < 0) {
-        minutes += 60;
-        hours--;
-      }
-
-      if (hours < 0) {
-        hours += 24;
-        days--;
-      }
-
-      if (days < 0) {
-        months--;
-        const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-        days += lastMonth.getDate();
-      }
-
-      if (months < 0) {
-        months += 12;
-        years--;
-      }
-
-      counter.textContent = `${months + (years * 12)} meses, ${days} días, ${String(hours).padStart(2, '0')} horas, ${String(minutes).padStart(2, '0')} minutos y ${String(seconds).padStart(2, '0')} segundos`;
+      document.getElementById("contador").innerHTML =
+        `${meses + (años * 12)} meses, ${días} días, ${String(horas).padStart(2, '0')}h, ${String(minutos).padStart(2, '0')}m, ${String(segundos).padStart(2, '0')}s`;
     }
+    setInterval(actualizarContador, 1000);
+    actualizarContador();
 
-    setInterval(updateCounter, 1000);
-    updateCounter();
+    const carta = `
+Luisa…
+
+No sabía que un nombre pudiera sentirse como un lugar.
+No sabía que una persona pudiera convertirse en casa.
+
+Desde el momento en que empezaste a formar parte de mis días, todo empezó a latir distinto.
+Tú, con tu manera suave de estar, de hablar, de mirar.
+Tú, que no necesitas ser tormenta para que el mundo se mueva.
+
+A veces me cuesta explicarte cuánto te amo…
+porque lo que siento por ti no cabe en frases, ni en mensajes,
+ni siquiera en esta app que he creado para ti.
+
+Pero aún así, aquí estoy.
+Creando este rincón en el mundo digital, solo para ti.
+Para que cuando dudes, cuando estés cansada, cuando el día pese…
+entres aquí, y recuerdes que alguien, en algún lugar,
+hizo todo esto solo para ti.
+
+Porque lo mereces. Porque tú, Luisa, mereces un amor que no se borre.
+
+— Francisco
+`;
+    document.getElementById("carta").textContent = carta.trim();
   </script>
 </body>
 </html>
